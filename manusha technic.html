@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manusha Technic | Sinhala Tech Tutorials</title>
+    <style>
+        :root {
+            --primary: #FF0000; /* YouTube red */
+            --secondary: #282828;
+            --accent: #FFD700; /* Gold accent */
+            --dark: #212121;
+            --light: #f9f9f9;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Noto Sans Sinhala', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        @font-face {
+            font-family: 'Noto Sans Sinhala';
+            src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&display=swap');
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo-text span {
+            color: var(--accent);
+        }
+        
+        .subscriber-count {
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+        
+        .subscriber-count i {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+        
+        .progress-container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin: 0.5rem auto;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: var(--accent);
+            width: 51%; /* 1.02k/2k = 51% */
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            padding: 1.2rem 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-color: #e60000;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .latest-videos {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.3rem;
+            color: var(--dark);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            padding: 0 1rem;
+        }
+        
+        .video-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .video-card:hover .play-icon {
+            opacity: 1;
+        }
+        
+        .play-icon::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 18px solid transparent;
+            border-left: 30px solid var(--primary);
+            border-bottom: 18px solid transparent;
+            margin-left: 5px;
+        }
+        
+        .video-info {
+            padding: 1.8rem;
+        }
+        
+        .video-info h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+        
+        .video-info p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .stats span {
+            display: flex;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+        
+        .stats i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .about {
+            padding: 5rem 0;
+            background-color: #f5f7fa;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item i {
+            width: 30px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .subscribe {
+            padding: 5rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .subscribe h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2.3rem;
+        }
+        
+        .subscribe p {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .subscribe-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+        
+        .subscribe-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .subscribe-form button {
+            padding: 0 2.5rem;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            background-color: var(--accent);
+            color: var(--dark);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .subscribe-form button:hover {
+            background-color: #ffdf4d;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.8rem;
+            position: relative;
+            display: inline-block;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .footer-column p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .about-image {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2rem;
+            }
+            
+            .logo-img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            nav ul li {
+                padding: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .subscribe-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+            
+            .subscribe-form button {
+                border-radius: 50px;
+                padding: 1rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+                display: block;
+                margin: 0.8rem auto;
+                max-width: 250px;
+            }
+            
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Manusha Technic Logo" class="logo-img">
+                <h1 class="logo-text">Manusha <span>Technic</span></h1>
+            </div>
+            
+            <div class="subscriber-count">
+                <i class="fas fa-users"></i>
+                <span>1.02K Subscribers</span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text">Goal: 2K Subscribers</div>
+            
+            <p class="tagline">සරලව තාක්ෂණය ඉගෙනගන්න | Learn Technology in Sinhala</p>
+            <a href="https://youtube.com/@mamushatechnic?si=LSsbuhYk1JC0Bcth" class="btn" target="_blank">
+                <i class="fab fa-youtube"></i> Subscribe Now
+            </a>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Technology Education in Sinhala</h2>
+            <p>Quality tutorials about smartphones, computers, software and modern technology specially designed for Sinhala-speaking audience</p>
+            <div>
+                <a href="#videos" class="btn">
+                    <i class="fas fa-play"></i> Watch Videos
+                </a>
+                <a href="https://youtube.com/@mamushatechnic?si=LSsbuhYk1JC0Bcth" class="btn btn-outline" target="_blank">
+                    <i class="fab fa-youtube"></i> Visit Channel
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="latest-videos" id="videos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Videos</h2>
+            </div>
+            <div class="video-grid">
+                <!-- Video 1 -->
+                <div class="video-card">
+                    <a href="https://youtu.be/wlfa0DaJndA?si=3tLaEgvkYMMVaK0v" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="https://i.ytimg.com/vi/wlfa0DaJndA/maxresdefault.jpg" alt="Latest Video 1">
+                            <div class="play-icon"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Video Title 1</h3>
+                            <p>Description of your first latest video</p>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 125K views</span>
+                                <span><i class="fas fa-calendar-alt"></i> 5 days ago</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Video 2 -->
+                <div class="video-card">
+                    <a href="https://youtu.be/NAth9tNR3pY?si=INc8cV68pyczzrnp" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="https://i.ytimg.com/vi/NAth9tNR3pY/maxresdefault.jpg" alt="Latest Video 2">
+                            <div class="play-icon"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Video Title 2</h3>
+                            <p>Description of your second latest video</p>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 89K views</span>
+                                <span><i class="fas fa-calendar-alt"></i> 2 weeks ago</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Video 3 -->
+                <div class="video-card">
+                    <a href="https://youtu.be/SCT1j4wld6w?si=V7DqYLPsxqZoK4a9" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="https://i.ytimg.com/vi/SCT1j4wld6w/maxresdefault.jpg" alt="Latest Video 3">
+                            <div class="play-icon"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Video Title 3</h3>
+                            <p>Description of your third latest video</p>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 75K views</span>
+                                <span><i class="fas fa-calendar-alt"></i> 3 weeks ago</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Manusha Technic</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>සාමාන්‍ය භාෂාවෙන් තාක්ෂණය ඉගෙනගන්න</h3>
+                    <p> Manusha Technic යනු ශ්‍රී ලාංකික ජනතාව සඳහා විශේෂයෙන්ම සකස් කරන ලද තාක්ෂණික නාලිකාවකි. අපගේ අරමුණ තාක්ෂණය සරලව හා පැහැදිලිව පැහැදිලි කිරීමයි.</p>
+                    <p>අපගේ වීඩියෝ මගින් ඔබට පහත දේවල් ඉගෙන ගත හැකිය:</p>
+                    <ul style="list-style-type: none; margin-bottom: 1.5rem;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> ස්මාර්ට්ෆෝන්, ලැප්ටොප් සහ ටැබ්ලට් සමාලෝචන</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> පරිගණක හා මොබයිල් උපකරණ භාවිතය</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> මෘදුකාංග උපදෙස් හා උපක්‍රම</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> අන්තර්ජාල ආරක්ෂාව හා පෞද්ගලිකත්වය</li>
+                    </ul>
+                    
+                    <div class="contact-info" id="contact">
+                        <h3>Contact Me</h3>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp: 0766289655</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email: chamothmanusha074@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Manusha Technic">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="subscribe" id="tutorials">
+        <div class="container">
+            <h2>Never Miss a Tech Tutorial</h2>
+            <p>Subscribe to get notified about our latest videos on smartphones, computers and technology</p>
+            <form class="subscribe-form" id="subscribeForm">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Manusha Technic</h3>
+                    <p>සරලව තාක්ෂණය ඉගෙනගන්න. අපගේ නාලිකාව ඔස්සේ ඔබට තාක්ෂණික දැනුම ලබාගත හැකිය.</p>
+                    <div class="social-links">
+                        <a href="https://youtube.com/@mamushatechnic?si=LSsbuhYk1JC0Bcth" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://wa.me/94766289655" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:chamothmanusha074@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#videos">Latest Videos</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Smartphone Reviews</a></li>
+                        <li><a href="#">Laptop Guides</a></li>
+                        <li><a href="#">Windows Tutorials</a></li>
+                        <li><a href="#">Android Tips</a></li>
+                        <li><a href="#">Internet Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fab fa-whatsapp"></i> +94 76 628 9655</li>
+                        <li><i class="fas fa-envelope"></i> chamothmanusha074@gmail.com</li>
+                        <li><i class="fab fa-youtube"></i> youtube.com/@mamushatechnic</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Manusha Technic. All rights reserved.<br>
+                Created with <i class="fas fa-heart" style="color: var(--primary);"></i> for Sri Lankan tech enthusiasts
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animate progress bar
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById('progressBar');
+            setTimeout(() => {
+                progressBar.style.width = '51%';
+            }, 500);
+            
+            // Form submission
+            const form = document.getElementById('subscribeForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thanks for subscribing! We\'ll notify you about new videos.');
+                form.reset();
+            });
+            
+            // Update subscriber count periodically (simulated)
+            setInterval(() => {
+                const subCount = document.querySelector('.subscriber-count span');
+                const currentSubs = parseFloat(subCount.textContent);
+                const newSubs = currentSubs + (Math.random() * 0.1);
+                subCount.textContent = newSubs.toFixed(2) + 'K Subscribers';
+                
+                // Update progress bar
+                const progressPercentage = (newSubs / 2) * 100;
+                progressBar.style.width = progressPercentage + '%';
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
